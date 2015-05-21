@@ -9,7 +9,11 @@ var express = require('express'),
     routes = require('./routes'),
     shopifyAuth = require('./routes/shopify_auth'),
     path = require('path'),
-    nconf = require('nconf');
+    nconf = require('nconf'),
+    cookieParser = require('cookie-parser'),
+    session = require('express-session')
+    logger = require('express-logger'),
+    bodyParser = require('body-parser');
 
 //load settings from environment config
 nconf.argv().env().file({
@@ -21,15 +25,15 @@ exports.nconf = nconf;
 var app = express();
 
 //log all requests
-app.use(express.logger());
+app.use(logger({path: 'logs.txt'}));
 
 //support json and url encoded requests
-app.use(express.json());
-app.use(express.urlencoded());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded());
 
 //setup encrypted session cookies
-app.use(express.cookieParser());
-app.use(express.session({
+app.use(cookieParser());
+app.use(session({
     secret: "--express-session-encryption-key--"
 }));
 
