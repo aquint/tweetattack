@@ -11,8 +11,10 @@
     "express": "^4.12.4",
     "express-logger": "0.0.3",
     "express-session": "^1.11.2",
-    "jade": "*",
+    "hogan-express": "^0.5.2",
     "nconf": "~0.6.9",
-    "oauth": "~0.9.11"
+    "node-schedule": "^0.2.7",
+    "oauth": "~0.9.11",
+    "twit": "^1.1.20"
   }
 }

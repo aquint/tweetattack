@@ -14,6 +14,14 @@ var express = require('express'),
     session = require('express-session')
     logger = require('express-logger'),
     bodyParser = require('body-parser');
+    var Twit = require('twit')
+
+var T = new Twit({
+    consumer_key:         'm5Zjl9DPFrhdoP1uJRMPxUycX',
+  	consumer_secret:      'raWh2XXPOB1mPt3Tx0Waaqto9vrtEsrIcglHTMhwhOiYbcYGsI',
+  	access_token:         'DGJ5ar8Wx5caxRhJyBQjfSEEuF7HTaYbLW5GDS8',
+  	access_token_secret:  'CQOlWdOq5dEupNSS1F5NzMKtZiSvA8wTpjXhpR7mGFqef'
+})
 
 //load settings from environment config
 nconf.argv().env().file({
@@ -41,7 +49,9 @@ app.use(session({
 app.use(express.static(path.join(__dirname, 'public')));
 
 //use jade templating engine for view rendering
-app.set('view engine', 'jade');
+app.engine('html', require('hogan-express'));
+app.set('view engine', 'html');
+app.set('layout', 'layout');
 
 //use the environment's port if specified
 app.set('port', process.env.PORT || 3000);
