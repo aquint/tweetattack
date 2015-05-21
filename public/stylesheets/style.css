@@ -225,7 +225,7 @@ hr {
 }
 
 /* modifiers: default, filter-left */
-.btn.default, .btn.filter-left, .btn.destroy {
+.btn.default, .btn.filter-left{
   background-color: #ffffff;
   border: 1px solid #d3dbe2;
   color: #479ccf;
@@ -235,7 +235,11 @@ hr {
   border-right: none;
   padding: 0 20px 0 9px;
 }
-
+.btn.destroy{
+	background: #FF5D5D none repeat scroll 0% 0%/auto padding-box border-box;
+	border: 1px solid #FF5D5D;
+	color: white;
+}
 .btn.default:hover, .btn.default:active, .btn.filter-left:hover, .btn.filter-left:active {
   background-color: #F5F6F7;
   border: #d6d6d6 1px solid;
