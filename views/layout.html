@@ -3,14 +3,32 @@
   <head>
     <link rel="stylesheet" href="/stylesheets/style.css">
     <script src="https://cdn.shopify.com/s/assets/external/app.js"></script>
+    <script src="/javascripts/script.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script>
       ShopifyApp.init({
-        apiKey: {{{apiKey}}},
-        shopOrigin: {{{shopUrl}}}
+        apiKey: '{{{apiKey}}}',
+        shopOrigin: '{{{shopUrl}}}'
       });
     </script>
   </head>
   <body>
     {{{yield}}}
   </body>
+  <script type="text/javascript">
+    
+    ShopifyApp.window().$(document).ready(function(){
+      $('#twitter-auth').on('click', function(){
+        $.ajax({
+          url: '/auth/twitter',
+          type: 'GET',
+          success: function(data){
+            window.open('https://twitter.com/oauth/authenticate?oauth_token='+data.oauth_tok);
+            console.log(ShopifyApp);
+            console.log(ShopifyApp.Modal);
+          }
+        })
+      });
+    })
+  </script>
 </html>

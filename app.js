@@ -6,15 +6,15 @@
  */
 
 var express = require('express'),
+    mongoose = require('mongoose'),
     routes = require('./routes'),
-    shopifyAuth = require('./routes/shopify_auth'),
     path = require('path'),
     nconf = require('nconf'),
     cookieParser = require('cookie-parser'),
     session = require('express-session')
     logger = require('express-logger'),
     bodyParser = require('body-parser');
-    var Twit = require('twit')
+    var Twit = require('twit');
 
 var T = new Twit({
     consumer_key:         'm5Zjl9DPFrhdoP1uJRMPxUycX',
@@ -22,6 +22,22 @@ var T = new Twit({
   	access_token:         'DGJ5ar8Wx5caxRhJyBQjfSEEuF7HTaYbLW5GDS8',
   	access_token_secret:  'CQOlWdOq5dEupNSS1F5NzMKtZiSvA8wTpjXhpR7mGFqef'
 })
+
+var uristring = 'localhost';
+
+mongoose.connect(uristring, function(err, res){
+    if(err){
+        console.log('ERROR connecting to: '+ uristring + '.' + err);
+    }else{
+        console.log('Succeeded to connect to:' + uristring);
+    }
+})
+
+var shopifyAuth = require('./routes/shopify_auth'),
+    twitterAuth = require('./routes/twitter_auth');
+
+
+
 
 //load settings from environment config
 nconf.argv().env().file({
@@ -57,6 +73,7 @@ app.set('layout', 'layout');
 app.set('port', process.env.PORT || 3000);
 
 var appAuth = new shopifyAuth.AppAuth();
+var twitterAuthRoute = new twitterAuth.TwitterAuth();
 
 //configure routes
 app.get('/', routes.index);
@@ -64,6 +81,8 @@ app.get('/auth_app', appAuth.initAuth);
 app.get('/escape_iframe', appAuth.escapeIframe);
 app.get('/auth_code', appAuth.getCode);
 app.get('/auth_token', appAuth.getAccessToken);
+app.get('/auth/twitter', twitterAuthRoute.initTwitterAuth);
+app.get('/auth/twitter/callback', twitterAuthRoute.getAccessToken);
 app.get('/render_app', routes.renderApp);
 
 app.listen(app.get('port'), function() {

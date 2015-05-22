@@ -2,7 +2,7 @@
 ShopifyApp.ready(function(){
 	ShopifyApp.Bar.loadingOff();
 	ShopifyApp.Bar.initialize({
-		title: '#{title}'
+		title: '{{title}}'
 	});
 });
 </script>
@@ -11,6 +11,8 @@ ShopifyApp.ready(function(){
 		<div class="cell-container">
 			<div class="cell-column">
 				<h1>Create New</h1>
+				<button id="twitter-auth">Twitter Auth</button>
+				<button id="modal">Modal</button>
 			</div>
 		</div>
 	</div>

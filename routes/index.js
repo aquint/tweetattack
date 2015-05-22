@@ -17,7 +17,9 @@ var app = require('../app'),
  * redirect to app authorisation.
  */
 exports.index = function(req, res){
+    console.log("in index");
     if (!req.session.oauth_access_token) {
+        console.log("here");
         var parsedUrl = url.parse(req.originalUrl, true);
         if (parsedUrl.query && parsedUrl.query.shop) {
             req.session.shopUrl = 'https://' + parsedUrl.query.shop;
@@ -26,6 +28,7 @@ exports.index = function(req, res){
         res.redirect("/auth_app");
     }
     else {
+        console.log("rendering app");
         res.redirect("/render_app");
     }
 };
@@ -36,6 +39,7 @@ exports.index = function(req, res){
  * render the main app view
  */
 exports.renderApp = function(req, res){
+    console.log(req.session.shopUrl);
     res.render('app_view', {
         title: 'My App Title',
         apiKey: app.nconf.get('oauth:api_key'),

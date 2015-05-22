@@ -9,6 +9,9 @@ var app = require('../app'),
     OAuth = require('oauth').OAuth2,
     url = require("url");
 
+var mongoose = require('mongoose');
+var User = require('../models/user');
+
 exports.AppAuth = function() {
     var self = this;
 
@@ -62,7 +65,7 @@ exports.AppAuth = function() {
      */
     this.getAccessToken = function(req, res) {
         var parsedUrl= url.parse(req.originalUrl, true);
-
+        console.log(req);
         self.OAuth(req.session.shopUrl).getOAuthAccessToken(
             parsedUrl.query.code, {},
             function(error, access_token, refresh_token) {

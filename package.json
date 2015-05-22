@@ -12,6 +12,7 @@
     "express-logger": "0.0.3",
     "express-session": "^1.11.2",
     "hogan-express": "^0.5.2",
+    "mongoose": "^4.0.3",
     "nconf": "~0.6.9",
     "node-schedule": "^0.2.7",
     "oauth": "~0.9.11",
